@@ -7,13 +7,15 @@ This widget is showing if tun0 is connected to something. I created this to alwa
 
 Download ip.sh
 Store it in a directory of your choice. 
-If you are using another interface than tun0 change ip.sh to match your interface.
+If you are using another interface than tun0 change NIC in ip.sh to match your interface.
 To show your internal IP-address on this interface uncomment the line:
     
-    #[[ ! -z "${INTIP// }" ]] && echo "tun0: $INTIP" 
+
+    #[[ ! -z "${INTIP// }" ]] && echo "$NIC: $INTIP"
 
 and add a # before
 
+    [[ ! -z "${INTIP// }" ]] && echo "$NIC: Connected"
     
 Make it executable using 
     
