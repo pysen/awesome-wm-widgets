@@ -5,7 +5,7 @@ WGET_OPTS="-O - -q"
 
 
 AWK=$(which awk)
-NIC="tun0"
+NIC=$1
 
 INTIP=`ip addr show $NIC | $AWK '{ if (NR == 3) { print $4 }}'`
 
