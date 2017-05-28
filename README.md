@@ -3,11 +3,10 @@ widgets for awesome
 
 
 ##### ipwidget: A widget showing the status of tun0:
-This widget is showing if tun0 is connected to something. I created this to always see if i am connected to the vpn.
+This widget shows if an interface (specified in first param of ip.sh) is connected.
 
 Download ip.sh
 Store it in a directory of your choice. 
-If you are using another interface than tun0 change NIC in ip.sh to match your interface.
 To show your internal IP-address on this interface uncomment the line:
     
 
@@ -30,7 +29,7 @@ Add :
     ipwidgettimer = timer({ timeout = 5 })
     ipwidgettimer:connect_signal("timeout",
         function()
-                fp = assert(io.popen("/path/to/ip.sh | tail -n 1" , "r"))
+                fp = assert(io.popen("/path/to/ip.sh <interface> | tail -n 1" , "r"))
                 ipwidget:set_text(" |".. fp:read("*l") .. " | ")
                 fp:close()
     end
@@ -52,3 +51,7 @@ in section:
     -- Add widgets to the wibox
     
 Reload the config of awesome wm.
+
+To add a second interface to watch just create a second widget in the same way with a different name. Make sure to also change the device name in line:
+           
+           fp = assert(io.popen("/path/to/ip.sh <interface> | tail -n 1" , "r"))
