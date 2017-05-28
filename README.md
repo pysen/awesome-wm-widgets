@@ -55,3 +55,41 @@ Reload the config of awesome wm.
 To add a second interface to watch just create a second widget in the same way with a different name. Make sure to also change the device name in line:
            
            fp = assert(io.popen("/path/to/ip.sh <interface> | tail -n 1" , "r"))
+
+
+##### cpuwidget: A widget  to show the current CPU-Usage
+Download cpu.sh
+Store it in a directory of your choice. 
+
+Make sure to replace the path to your ip.sh in the following
+Add :
+
+        cpuwidget = wibox.widget.textbox()
+        cpuwidget:set_text("| cpu ")
+        cpuwidgettimer = timer({ timeout=2 })
+        cpuwidgettimer:connect_signal("timeout",
+            function()
+                fp2 = assert(io.popen("~/.config/awesome/cpu.sh" , "r"))
+                cpuwidget:set_text(" |CPU usage: ".. fp2:read("*l") .. "% ")
+                fp2:close()
+            end
+        )
+
+        cpuwidgettimer:start()
+
+
+to your rc.lua behind:
+    
+    -- {{{ Wibar
+    -- Create a textclock widget
+    mytextclock = wibox.widget.textclock()
+
+Then add:
+    
+    cpuwidget, 
+
+in section:
+    
+    -- Add widgets to the wibox
+    
+Reload the config of awesome wm.
