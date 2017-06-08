@@ -28,7 +28,9 @@ This widget shows "Connected" if you are connected to a vpn through tun0 interfa
 To install follow the instructions in general usage (see above) and replace "name_of_file" with "vpn".
 The name of the widget is "vpn_widget".
 
-##### wifi widget: A widget showing to which wifi you are currently connected
+##### wifi_widget: A widget showing to which wifi you are currently connected
 This widget shows if you are connected to a wifi. If so it shows the name of the wifi you are connected to. 
 To install follow the instructions in general usage (see above) and replace "name_of_file" with "wifi".
 The name of the widget is "wifi_widget".
+
+wifi.lua uses nmcli. To use iw instead download the wifi_iw.lua
