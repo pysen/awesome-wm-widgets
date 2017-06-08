@@ -34,3 +34,5 @@ To install follow the instructions in general usage (see above) and replace "nam
 The name of the widget is "wifi_widget".
 
 wifi.lua uses nmcli. To use iw instead download the wifi_iw.lua
+
+##### bitrate_widget: A widget showing the tx and rx bitrate
