@@ -1,95 +1,34 @@
 # awesome-wm-widgets
 widgets for awesome
 
+#### General usage
+1. Download the lua-File of the widget you want to use.
+2. add 
+        
+        require("name_of_file")
+   to your rc.lua
+   Example:
+   
+        require("vpn")
+   Note that there is no .lua in the require-command
+   
+3. Add the name of the widget in the wibox you want to add it to.
+   You will find the right spot behind:
+   
+         -- Create the wibox
+        s.mywibox = awful.wibar({ position = "bottom", screen = s })
+        s.mywibox:setup {
+        layout = wibox.layout.align.horizontal,
 
-##### ipwidget: A widget showing the status of tun0:
-This widget shows if an interface (specified in first param of ip.sh) is connected.
+4. Save your rc.lua and reload the config by pressing "Mod + CTRL + R"
+5. Done! The widget should appear!
 
-Download ip.sh
-Store it in a directory of your choice. 
-To show your internal IP-address on this interface uncomment the line:
-    
+##### vpn_widget: A widget showing the status of tun0:
+This widget shows "Connected" if you are connected to a vpn through tun0 interface. You may easily change the interface in case you are using another one.
+To install follow the instructions in general usage (see above) and replace "name_of_file" with "vpn".
+The name of the widget is "vpn_widget".
 
-    #[[ ! -z "${INTIP// }" ]] && echo "$NIC: $INTIP"
-
-and add a # before
-
-    [[ ! -z "${INTIP// }" ]] && echo "$NIC: Connected"
-    
-Make it executable using 
-    
-    chmod a+x /path/to/ip.sh
-
-
-Make sure to replace the path to your ip.sh in the following
-Add :
-
-    ipwidget = wibox.widget.textbox()
-    ipwidget:set_text("| ip addr |")
-    ipwidgettimer = timer({ timeout = 5 })
-    ipwidgettimer:connect_signal("timeout",
-        function()
-                fp = assert(io.popen("/path/to/ip.sh <interface> | tail -n 1" , "r"))
-                ipwidget:set_text(" |".. fp:read("*l") .. " | ")
-                fp:close()
-    end
-    )
-    ipwidgettimer:start()
-
-to your rc.lua behind:
-    
-    -- {{{ Wibar
-    -- Create a textclock widget
-    mytextclock = wibox.widget.textclock()
-
-Then add:
-    
-    ipwidget, 
-
-in section:
-    
-    -- Add widgets to the wibox
-    
-Reload the config of awesome wm.
-
-To add a second interface to watch just create a second widget in the same way with a different name. Make sure to also change the device name in line:
-           
-           fp = assert(io.popen("/path/to/ip.sh <interface> | tail -n 1" , "r"))
-
-
-##### cpuwidget: A widget  to show the current CPU-Usage
-Download cpu.sh
-Store it in a directory of your choice. 
-
-Make sure to replace the path to your ip.sh in the following
-Add :
-
-        cpuwidget = wibox.widget.textbox()
-        cpuwidget:set_text("| cpu ")
-        cpuwidgettimer = timer({ timeout=2 })
-        cpuwidgettimer:connect_signal("timeout",
-            function()
-                fp2 = assert(io.popen("~/.config/awesome/cpu.sh" , "r"))
-                cpuwidget:set_text(" |CPU usage: ".. fp2:read("*l") .. "% ")
-                fp2:close()
-            end
-        )
-
-        cpuwidgettimer:start()
-
-
-to your rc.lua behind:
-    
-    -- {{{ Wibar
-    -- Create a textclock widget
-    mytextclock = wibox.widget.textclock()
-
-Then add:
-    
-    cpuwidget, 
-
-in section:
-    
-    -- Add widgets to the wibox
-    
-Reload the config of awesome wm.
+##### wifi widget: A widget showing to which wifi you are currently connected
+This widget shows if you are connected to a wifi. If so it shows the name of the wifi you are connected to. 
+To install follow the instructions in general usage (see above) and replace "name_of_file" with "wifi".
+The name of the widget is "wifi_widget".
