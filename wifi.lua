@@ -7,6 +7,7 @@ wifi_widget = wibox.widget.textbox()
 watch(
     "nmcli -t -f active,ssid dev wifi ", 3,
     function(widget, stdout, stderr, exitreason, exitcode)
+    local wifi = string.match(stdout, "yes:.*\n")
     local index_1, index_2 = string.find(stdout, "yes:[a-z]*")
     if(wifi == '' or wifi==nil ) then
         widget.text= "| No wifi |"
